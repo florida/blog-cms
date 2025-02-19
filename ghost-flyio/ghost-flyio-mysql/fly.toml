@@ -1,0 +1,23 @@
+app = "florida-ghost-mysql"
+primary_region = 'sea'
+[build]
+  image = 'mysql:8'
+[env]
+  MYSQL_DATABASE = 'ghost'
+  MYSQL_USER = 'ghost'
+[processes]
+  app = '--datadir /data/mysql --mysql-native-password=ON  --performance-schema=OFF --innodb-buffer-pool-size 64M'
+[[mounts]]
+  source = 'mysql_data'
+  destination = '/data'
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

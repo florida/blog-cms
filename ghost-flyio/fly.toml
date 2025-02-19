@@ -1,0 +1,27 @@
+app = 'florida-ghost'
+primary_region = 'sea'
+
+[http_service]
+  internal_port = 2368
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
+[mounts]
+  source="ghost_data"
+  destination="/var/lib/ghost/content"
+[env]
+  storage__active = "s3"
+  storage__s3__region = "auto"
+  storage__s3__bucket = "florida-ghost"
+  storage__s3__assetHost = "https://fly.storage.tigris.dev/florida-ghost"
+  storage__s3__endpoint = "https://fly.storage.tigris.dev"
+
+
+
