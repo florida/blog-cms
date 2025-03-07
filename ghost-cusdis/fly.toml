@@ -1,0 +1,35 @@
+# fly.toml app configuration file for florida-cusdis
+
+app = 'florida-cusdis'
+primary_region = 'ewr'
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [services.ports.http_options.response.headers]
+    Access-Control-Allow-Origin = "https://floridaelago.com, http://localhost:3000"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, x-timezone-offset"
+
+
+[env]
+DB_URL="file:/data/db.sqlite"
+
+[mounts]
+  source="data"
+  destination="/data"
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
