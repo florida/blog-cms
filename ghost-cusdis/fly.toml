@@ -17,14 +17,14 @@ primary_region = 'ewr'
     port = 443
 
   [services.ports.http_options.response.headers]
-    Access-Control-Allow-Origin = "https://floridaelago.com, http://localhost:3000"
+    Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, x-timezone-offset"
 
 
 [env]
 DB_URL="file:/data/db.sqlite"
-
+NEXTAUTH_URL="http://florida-cusdis.fly.dev"
 [mounts]
   source="data"
   destination="/data"
